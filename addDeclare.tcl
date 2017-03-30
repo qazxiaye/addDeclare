@@ -47,6 +47,19 @@ catch {exec cat $scriptPath/declare/$lang} declaration
 #get src files
 catch {exec find $path -name *.$lang} srcFiles
 
+if {$lang eq "c"} {
+    catch {exec find $path -name *.h} msg
+    append srcFiles $msg
+}
+
+if {$lang eq "cpp"} {
+    catch {exec find $path -name *.h} msg
+    append srcFiles $msg
+
+    catch {exec find $path -name *.hpp} msg
+    append srcFiles $msg
+}
+
 set tmp [clock seconds]
 proc InsertDeclare {srcFile from} {
     global declaration tmp
